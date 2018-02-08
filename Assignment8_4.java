@@ -28,16 +28,38 @@ public class Assignment8_4 {
             System.out.print("\n");
         }
         
-        System.out.println("\nTOTALS");
         int total = 0;
+        int[][] totals = new int[2][employees];
+        
         for(int i = 0;i<employees;i++){
-            System.out.print("Employee " + (i+1) + " Total Hours: ");
             for(int n = 0;n<7;n++){
                 total += hours[i][n];
             }
-            System.out.print(total + "\n");
+            totals[0][i] = total;
+            totals[1][i] = i;
             total = 0;
         }
+        
+        for(int i = 0;i<employees;i++){
+            for(int n = i;n<employees;n++){
+                if(totals[0][n]>totals[0][i]){
+                    int tempEmp = totals[1][i];
+                    int tempTotal = totals[0][i];
+                    
+                    totals[1][i] = totals[1][n];
+                    totals[0][i] = totals[0][n];
+                    totals[1][n] = tempEmp;
+                    totals[0][n] = tempTotal;
+                }
+            }
+        }
+        
+        
+        System.out.println("\nTOTALS (decreasing order)");
+        
+        for(int i = 0;i<employees;i++){
+            System.out.print("Employee " + (totals[1][i]+1) + " Total Hours: "
+                             + totals[0][i] + "\n");
+        }
     }
-    
 }
